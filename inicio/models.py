@@ -9,3 +9,16 @@ class Usuario(models.Model):
 
     def __str__(self):
         return self.cpf
+    
+
+class Cliente(models.Model):
+    id_cliente = models.AutoField(primary_key=True)    
+    nome = models.CharField(max_length=100)
+    telefone = models.CharField(max_length=15)
+    data_cadastro = models.DateField()
+
+    class Meta:
+        db_table = "TB_CLIENTE"  # Faz referência à tabela existente no banco de dados
+
+    def __str__(self):
+        return self.nome
