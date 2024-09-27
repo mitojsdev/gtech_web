@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Gtech Control 2.0{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .menu-lateral {
+            height: 100vh;
+            background-color: #343a40;
+            padding-top: 20px;
+        }
+        .menu-lateral ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .menu-lateral ul li a {
+            color: white;
+            padding: 15px;
+            display: block;
+            text-decoration: none;
+        }
+        .menu-lateral ul li a:hover {
+            background-color: #495057;
+        }
+        .header {
+            background-color: #f8f9fa;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .content {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <!-- Cabeçalho com o nome da aplicação -->
+    <div class="row">
+        <div class="col-12 header">
+            Gtech Control 2.0
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Menu Lateral -->
+        <div class="col-3 menu-lateral">
+            <ul>
+                <li>
+                    <a href="#" onclick="toggleSubMenu('submenu-cliente')">Cliente</a>
+                    <ul id="submenu-cliente" style="display:none;">
+                        <li><a href="#" onclick="showForm('form-cliente')">Cadastrar Cliente</a></li>
+                        <li><a href="{% url 'pesquisar_cliente' %}">Pesquisar Cliente</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Fornecedor</a></li>
+                <li><a href="#">Produto</a></li>
+                <li><a href="#">Venda</a></li>
+            </ul>
+        </div>
+
+        <!-- Conteúdo principal -->
+        <div class="col-9 content">
+            {% block content %}
+            <!-- O conteúdo de cada página será renderizado aqui -->
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+<!-- Script para alternar submenu -->
+<script>
+    function toggleSubMenu(id) {
+        var submenu = document.getElementById(id);
+        submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
+    }
+</script>
+
+<!-- Bootstrap JS (opcional) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

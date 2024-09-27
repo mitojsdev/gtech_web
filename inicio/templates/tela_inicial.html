@@ -53,6 +53,22 @@
 </head>
 <body>
 
+<div class="container mt-3">
+    {% if messages %}
+    <div class="alert alert-dismissible fade show">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags}} alert-dismissible fade show" role="alert">
+                {{message}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                    <spana aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</div>
+
 <div class="container-fluid">
     <!-- Cabeçalho com o nome da aplicação -->
     <div class="row">
@@ -65,7 +81,13 @@
         <!-- Menu Lateral -->
         <div class="col-3 menu-lateral">
             <ul>
-                <li><a href="#" onclick="showForm('form-cliente')">Cliente</a></li>
+                <li>
+                    <a href="#" onclick="toggleSubMenu('submenu-cliente')">Cliente</a>
+                    <ul id="submenu-cliente" style="display:none;">
+                        <li><a href="#" onclick="showForm('form-cliente')">Cadastrar Cliente</a></li>
+                        <li><a href="{% url 'pesquisar_cliente' %}">Pesquisar Cliente</a></li>
+                    </ul>
+                </li>
                 <li><a href="#" onclick="showForm('form-fornecedor')">Fornecedor</a></li>
                 <li><a href="#" onclick="showForm('form-produto')">Produto</a></li>
                 <li><a href="#" onclick="showForm('form-venda')">Venda</a></li>
@@ -81,15 +103,15 @@
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="cliente-nome">Nome</label>
-                        <input type="text" class="form-control" id="cliente-nome" name="nome" placeholder="Digite o nome">
+                        <input type="text" class="form-control" id="cliente-nome" name="nome" placeholder="Digite o nome" required>
                     </div>
                     <div class="form-group">
                         <label for="cliente-telefone">Telefone</label>
-                        <input type="text" class="form-control" id="cliente-telefone" name="telefone" placeholder="Digite o telefone">
+                        <input type="text" class="form-control" id="cliente-telefone" name="telefone" placeholder="Digite o telefone" required>
                     </div>                    
                     <div class="form-group">
                         <label for="cliente-nome">Data de Cadastro</label>
-                        <input type="date" class="form-control" id="cliente-data" name="data_cadastro">
+                        <input type="date" class="form-control" id="cliente-data" name="data_cadastro" required>
                     </div>
                     <!-- Outros campos... -->
                     <button type="submit" class="btn btn-primary">Cadastrar Cliente</button>
@@ -160,6 +182,15 @@
         }
         // Mostrar o formulário correspondente ao menu clicado
         document.getElementById(formId).classList.add('active');
+    }
+
+    function toggleSubMenu(id) {
+        var submenu = document.getElementById(id);
+        if (submenu.style.display === "none") {
+            submenu.style.display = "block";
+        } else {
+            submenu.style.display = "none";
+        }
     }
 </script>
 

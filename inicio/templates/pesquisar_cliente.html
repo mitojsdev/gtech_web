@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Pesquisar Cliente{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Pesquisar Cliente</h2>
+
+    <!-- Formulário de Pesquisa -->
+    <form method="GET" action="{% url 'pesquisar_cliente' %}">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" value="{{ nome }}" placeholder="Digite o nome">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="telefone">Telefone</label>
+                <input type="text" class="form-control" id="telefone" name="telefone" value="{{ telefone }}" placeholder="Digite o telefone">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Pesquisar</button>
+    </form>
+
+    <!-- Tabela de Clientes -->
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Data de Cadastro</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+            <tr>
+                <td>{{ cliente.id_cliente }}</td>
+                <td>{{ cliente.nome }}</td>
+                <td>{{ cliente.telefone }}</td>
+                <td>{{ cliente.data_cadastro }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">Nenhum cliente encontrado</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
